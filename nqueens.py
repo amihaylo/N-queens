@@ -1,4 +1,4 @@
-import itertools
+import random
 
 def share_diag(x0,x1,y0,y1):
     x_delta = abs(x0-y0)
@@ -108,19 +108,19 @@ def solve_N_queens(n):
     @return: the # of attempts it took to achieve that solution
     """
     #Init
+    rng = random.Random()
     attempts = 1 #The number of attempts it took to find a solution
-    solution = list(range(n))
-    permutations = itertools.permutations(solution)
+    potential_sol = list(range(n))
 
     # while True:
-    for potential_sol in permutations:
-        # print(list(potential_sol))
+    while True:
+        rng.shuffle(potential_sol)
         if is_board_valid(potential_sol):
             return {
                 "board":list(potential_sol),
                 "attempts":attempts
             }
-        attempts+=1
+        attempts+=1        
 
 def run_single_solution(n):
     # Solve the N qeen problem and display the board and # attempts
@@ -134,11 +134,11 @@ def run_single_solution(n):
 def run_multiple_solutions(highest_n):
     #Solve the N queen problem for everyting up to and including highest_n
     for curr_n in range(4,highest_n+1):
-        solution = solve_N_queens(curr_n)
+        solution = solve_N_queens(curr_n)  # Faster
         board = solution["board"]
         num_attempts = solution["attempts"]
         print("{:2}-Queen solved in {:8} attempts".format(curr_n, num_attempts))
 
 if __name__ == "__main__":
     run_single_solution(8)
-    run_multiple_solutions(11)
+    run_multiple_solutions(10)
