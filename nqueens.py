@@ -47,7 +47,7 @@ def is_board_valid(board_state):
             return False
     return True
 
-def map_row_to_col_representation(board):
+def row_to_col_representation(board):
     """
     maps a row-based representation of a board to a coumn-based one
     row-based representation:    index=col, value=row
@@ -64,6 +64,38 @@ def map_row_to_col_representation(board):
     column-based: [1,3,0,2]
     """
     return [tup[0] for tup in sorted([(x,y) for x,y in enumerate(board)], key=lambda x: x[1])]
+
+def print_board(board_row_rep):
+    """
+    Prints the board in more human readable format
+    The function takes in a row-based representatioin of the board [2,0,3,1] (index=col, val=row)
+    ex.
+      0 1 2 3
+    0   Q                 
+    1       Q          
+    2 Q                 
+    3     Q            
+    """
+    #Get the col-based representation of the board
+    board_col_rep = row_to_col_representation(board_row_rep)
+    # print(board_row_rep)
+    # print(board_col_rep)
+
+    #Create the string that will be the final board
+    board_str = ""
+
+    #Create the template string
+    str_template = " |"*len(board_col_rep)
+
+    #Create the topmost indices of the board
+    board_str += "  " + " ".join(map(str,range(len(board_col_rep))))  + "\n"
+
+    #Create the actual board
+    for i in range(len(board_col_rep)):
+        queen_i = board_col_rep[i]
+        board_str += str(i) +"|" + str_template[:queen_i*2] + "Q" + str_template[queen_i*2+1:] + "\n"
+
+    print(board_str)
 
 def solve_N_queens(n):
     """
@@ -85,10 +117,13 @@ def solve_N_queens(n):
         # print(list(potential_sol))
         if is_board_valid(potential_sol):
             return {
-                "solution":potential_sol,
+                "board":list(potential_sol),
                 "attempts":attempts
             }
         attempts+=1        
 
 if __name__ == "__main__":
-    print(solve_N_queens(8))
+    solution = solve_N_queens(8)
+    board = solution["board"]
+    num_attempts = solution["attempts"]
+    print_board(board)
