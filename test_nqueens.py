@@ -25,6 +25,11 @@ class TestIsBoardValid(unittest.TestCase):
     def test3(self): self.assertEqual(nqueens.is_board_valid([2,0,3,1]), True) 
     def test4(self): self.assertEqual(nqueens.is_board_valid([0,1,2,3]), False) # All clash
 
+class TestMapRowToCol(unittest.TestCase):
+    def test1(self): self.assertEqual(nqueens.map_row_to_col_representation([]),[])
+    def test2(self): self.assertEqual(nqueens.map_row_to_col_representation([2,0,3,1]),[1,3,0,2])
+    def test3(self): self.assertEqual(nqueens.map_row_to_col_representation([6,4,2,0,5,7,1,3]),[3,6,2,7,1,4,0,5])
+
 if __name__ == "__main__":
 
     #Run test suite

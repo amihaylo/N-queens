@@ -47,6 +47,24 @@ def is_board_valid(board_state):
             return False
     return True
 
+def map_row_to_col_representation(board):
+    """
+    maps a row-based representation of a board to a coumn-based one
+    row-based representation:    index=col, value=row
+    column-based representation: index=row, value=col
+
+    ex.
+      0 1 2 3
+    0   Q                 
+    1       Q          
+    2 Q                 
+    3     Q            
+
+    row-based: [2,0,3,1]
+    column-based: [1,3,0,2]
+    """
+    return [tup[0] for tup in sorted([(x,y) for x,y in enumerate(board)], key=lambda x: x[1])]
+
 def solve_N_queens(n):
     """
     Given n solve the N-queens problem
@@ -70,7 +88,7 @@ def solve_N_queens(n):
                 "solution":potential_sol,
                 "attempts":attempts
             }
-        attempts+=1
+        attempts+=1        
 
 if __name__ == "__main__":
     print(solve_N_queens(8))
