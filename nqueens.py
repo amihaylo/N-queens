@@ -120,10 +120,25 @@ def solve_N_queens(n):
                 "board":list(potential_sol),
                 "attempts":attempts
             }
-        attempts+=1        
+        attempts+=1
+
+def run_single_solution(n):
+    # Solve the N qeen problem and display the board and # attempts
+    print("Running the {} Queen problem...".format(n))
+    solution = solve_N_queens(n)
+    board = solution["board"]
+    num_attempts = solution["attempts"]    
+    print_board(board)
+    print("Number of attempts made before solving = {}".format(num_attempts))
+
+def run_multiple_solutions(highest_n):
+    #Solve the N queen problem for everyting up to and including highest_n
+    for curr_n in range(4,highest_n+1):
+        solution = solve_N_queens(curr_n)
+        board = solution["board"]
+        num_attempts = solution["attempts"]
+        print("{:2}-Queen solved in {:8} attempts".format(curr_n, num_attempts))
 
 if __name__ == "__main__":
-    solution = solve_N_queens(8)
-    board = solution["board"]
-    num_attempts = solution["attempts"]
-    print_board(board)
+    run_single_solution(8)
+    run_multiple_solutions(11)
