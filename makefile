@@ -1,4 +1,5 @@
-DOCKER_IMAGE=continuumio/anaconda3
+#DOCKER_IMAGE=continuumio/anaconda3
+DOCKER_IMAGE=python:latest
 FILENAME_MAIN=nqueens.py
 FILENAME_TEST=test_nqueens.py
 
